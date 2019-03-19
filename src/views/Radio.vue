@@ -1,25 +1,64 @@
 <template>
   <div>
     <div>
-      <h2>Type</h2>
-      <pradio v-model="radio" label="1">1</pradio>
-      <pradio v-model="radio" label="2">2</pradio>
-      <pradio v-model="radio" label="3">3</pradio>
+      <h2>Radio</h2>
+      <pradio v-model="radio" name="'rdo'" @change="changeState" label="{a: 1}">11111</pradio>
+      <pradio v-model="radio" name="'rdo'" @change="changeState" label="{a: 2}">22222</pradio>
+      <pradio
+        v-model="radio"
+        name="'rdo'"
+        :disabled="true"
+        @change="changeState"
+        label="{a: 3}"
+      >33333</pradio>
+    </div>
+    <div>
+      <h2>pradiogroup</h2>
+      <pradiogroup
+        @change="listChangeState"
+        :name="'name'"
+        :selected="selected"
+        :datasource="datasource"
+        :disabled="disabled"
+      ></pradiogroup>
     </div>
   </div>
 </template>
 
 <script>
+let datasource = [
+  {
+    name: "Tom",
+    id: 1
+  },
+  {
+    name: "Jerry",
+    id: 2
+  },
+  {
+    name: "Jack",
+    id: 3
+  }
+];
+let disabled = datasource.filter(function(item) {
+  return item.id == 3;
+});
 export default {
   props: {},
   data() {
     return {
-      radio: "1"
+      radio: { a: 1 },
+      datasource,
+      selected: {},
+      disabled
     };
   },
   methods: {
-    say() {
-      console.log(arguments);
+    changeState(model) {
+      this.radio = model;
+    },
+    listChangeState(model) {
+      this.selected = model;
     }
   }
 };

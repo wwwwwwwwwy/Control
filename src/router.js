@@ -25,6 +25,11 @@ export default new Router({
       name: 'radio',
       component: Radio
     },
+    // {
+    //   path: '/checkbox',
+    //   name: 'checkbox',
+    //   component: Checkbox
+    // },
     {
       path: '/about',
       name: 'about',

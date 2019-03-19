@@ -1,11 +1,13 @@
 <template>
   <label>
-    <div class="pradio" @click="handleClick">
-      <input type="radio" name id>
-      <span class="pradio_input" :class="label===value?'pradio_input_checked':''"></span>
+    <div class="pradio" :class="[{
+      'is_disabled':disabled
+    }]">
+      <span class="pradio_input" :class="label===value?'pradio_input_checked':''">
+        <input v-if="!disabled" type="radio" class="pradio_dom" :name="name" @change="handleClick">
+      </span>
       <span class="pradio_label" v-if="$slots.default">
         <slot></slot>
-        {{label===value}}
       </span>
     </div>
   </label>
@@ -13,6 +15,11 @@
 
 <style lang="scss">
 .pradio {
+  &.is_disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
   overflow: hidden;
   color: #5478a4;
   line-height: 16px;
@@ -28,6 +35,15 @@
     position: relative;
     cursor: pointer;
     background: #fff;
+
+    .pradio_dom {
+      opacity: 0;
+      margin: 0;
+      margin-top: 50%;
+      margin-left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
 
     &.pradio_input_checked {
       border: 2px solid #6f8fb5;
@@ -47,8 +63,9 @@
   }
   .pradio_label {
     float: left;
-    margin-left: 8px;
+    margin-left: 4px;
     font-size: 14px;
+    margin-right: 8px;
   }
 }
 </style>
@@ -61,18 +78,12 @@ export default {
     value: {},
     label: {},
     disabled: Boolean,
-    name: String,
-    border: Boolean,
-    size: String
+    name: String
   },
   methods: {
     handleClick() {
-      this.value = this.label;
-      this.$emit("change", this.value);
+      this.$emit("change", this.label);
     }
-  },
-  mounted() {
-    console.log(this);
   }
 };
 </script>

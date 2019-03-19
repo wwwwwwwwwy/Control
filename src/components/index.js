@@ -1,10 +1,11 @@
 import pbutton from './button/index';
-import pradio from './radio/index';
+import { pradio, pradiogroup } from './radio/index';
 
 
 let components = [
     pbutton,
-    pradio
+    pradio,
+    pradiogroup
 ]
 
 const install = function (Vue, opts = {}) {
@@ -16,5 +17,6 @@ const install = function (Vue, opts = {}) {
 export default {
     install,
     pbutton,
-    pradio
+    pradio,
+    pradiogroup
 }
