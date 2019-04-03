@@ -1,11 +1,15 @@
 import pbutton from './button/index';
-import { pradio, pradiogroup } from './radio/index';
+import { pradio } from './radio/index';
+import { pcheckbox } from './checkbox/index';
+import { pinput } from './input/index';
 
 
 let components = [
     pbutton,
     pradio,
-    pradiogroup
+    // pradiogroup,
+    pcheckbox,
+    pinput
 ]
 
 const install = function (Vue, opts = {}) {
@@ -18,5 +22,7 @@ export default {
     install,
     pbutton,
     pradio,
-    pradiogroup
+    // pradiogroup,
+    pcheckbox,
+    pinput
 }

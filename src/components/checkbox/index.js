@@ -5,4 +5,4 @@ pcheckbox.install = function (Vue) {
     Vue.component(pcheckbox.name, pcheckbox);
 };
 
-export default pcheckbox;
+export { pcheckbox };

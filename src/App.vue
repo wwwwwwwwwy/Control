@@ -4,7 +4,9 @@
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>|
       <router-link to="/button">Button</router-link>|
-      <router-link to="/radio">Radio</router-link>
+      <router-link to="/radio">Radio</router-link>|
+      <router-link to="/input">input</router-link>|
+      <router-link to="/test">test</router-link>
     </div>
     <router-view/>
   </div>

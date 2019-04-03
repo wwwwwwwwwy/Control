@@ -6,7 +6,6 @@
       v-model="selected"
       :name="nametype"
       :disabled="disabled.indexOf(item)!=-1"
-      @change="handleClick"
       :label="item"
     >{{name?item[name]:item}}</pradio>
   </div>
@@ -30,7 +29,10 @@ export default {
       type: Array,
       default: () => []
     },
-    selected: {}
+    selected: {
+      type: Object,
+      default: () => undefined
+    }
   },
   methods: {
     handleClick(model) {

@@ -4,7 +4,22 @@
       'is_disabled':disabled
     }]">
       <span class="pradio_input" :class="label===value?'pradio_input_checked':''">
-        <input v-if="!disabled" type="radio" class="pradio_dom" :name="name" @change="handleClick">
+        <!-- <pinput
+          v-if="!disabled"
+          v-model="model"
+          :type="'radio'"
+          class="pradio_dom"
+          @change="handleClick"
+          :name="name"
+        ></pinput>-->
+        <input
+          v-if="!disabled"
+          v-model="model"
+          :value="label"
+          type="radio"
+          class="pradio_dom"
+          :name="name"
+        >
       </span>
       <span class="pradio_label" v-if="$slots.default">
         <slot></slot>
@@ -80,9 +95,14 @@ export default {
     disabled: Boolean,
     name: String
   },
-  methods: {
-    handleClick() {
-      this.$emit("change", this.label);
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", this.label);
+      }
     }
   }
 };

@@ -175,7 +175,11 @@
 <script>
 export default {
   name: "pbutton",
-  inject: [],
+  inject: {
+    pfrom: {
+      default: ""
+    }
+  },
   props: {
     type: {
       type: String,
@@ -204,8 +208,7 @@ export default {
   },
   computed: {
     buttonDisabled() {
-      return this.disabled;
-      //   return this.disabled || (this.pForm || {}).disabled;
+      return this.disabled || (this.pfrom || {}).disabled;
     }
   },
   methods: {

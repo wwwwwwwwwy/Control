@@ -2,7 +2,13 @@
   <div>
     <div>
       <h2>Radio</h2>
-      <pradio v-model="radio" name="'rdo'" @change="changeState" label="{a: 1}">11111</pradio>
+      <pradio
+        v-model="radio"
+        @input="handlerInput"
+        name="'rdo'"
+        @change="changeState"
+        label="{a: 1}"
+      >11111</pradio>
       <pradio v-model="radio" name="'rdo'" @change="changeState" label="{a: 2}">22222</pradio>
       <pradio
         v-model="radio"
@@ -12,7 +18,7 @@
         label="{a: 3}"
       >33333</pradio>
     </div>
-    <div>
+    <!-- <div>
       <h2>pradiogroup</h2>
       <pradiogroup
         @change="listChangeState"
@@ -21,6 +27,11 @@
         :datasource="datasource"
         :disabled="disabled"
       ></pradiogroup>
+    </div>-->
+    <div>
+      <h2>for</h2>
+      <p>{{radio}}</p>
+      <pradio v-for="(item,index) in datasource" :key="index" v-model="radio" :label="item">11111</pradio>
     </div>
   </div>
 </template>
@@ -47,13 +58,19 @@ export default {
   props: {},
   data() {
     return {
-      radio: { a: 1 },
+      radio: {
+        name: "Jack",
+        id: 3
+      },
       datasource,
       selected: {},
       disabled
     };
   },
   methods: {
+    handlerInput() {
+      console.log(arguments);
+    },
     changeState(model) {
       this.radio = model;
     },
