@@ -1,12 +1,19 @@
 <template>
-  <div class="pinput" :class="'default'">
+  <div class="pinput" :class="[focus?'focus':'default',error?'error':'']">
     <div class="per-text left" v-if="false">星期：</div>
     <div class="per-center">
-      <input ref="input" @focus="focusHandler" type="text" placeholder="请输入">
+      <input
+        ref="input"
+        v-model="model"
+        @focus="focusHandler"
+        @blur="blurHandler"
+        type="text"
+        placeholder="请输入"
+      >
+      {{error}}
       <div class="per-inputborder"></div>
     </div>
     <div class="per-text right" v-if="false">kWh</div>
-    {{focus}}
     <div class="reminder-tip" friendly>
       <em></em>
     </div>
@@ -70,7 +77,7 @@
 }
 
 .error {
-  border: 1px solid #f97c7c;
+  border: 1px solid #f97c7c !important;
 }
 
 .pinput .per-center input[type="text"] {
@@ -89,17 +96,26 @@
 
 
 <script>
+import { debug } from "util";
 export default {
   name: "pinput",
   data() {
     return {
-      focus: false
+      focus: false,
+      error: false
     };
   },
   props: {
     width: {
       type: Number,
       default: () => 245
+    },
+    check: {
+      type: Function | RegExp
+    },
+    value: {
+      type: String,
+      default: () => ""
     }
   },
   methods: {
@@ -109,9 +125,26 @@ export default {
       this.focus = true;
     },
     blurHandler() {
-      // let bo
+      debugger;
+      let bool = this.$emit("blur");
+      if (bool === false) return;
+      this.focus = false;
+      if (Object.prototype.toString.call(this.check) == "Function")
+        this.error = this.check();
+      if (Object.prototype.toString.call(this.check).slice(8, -1) == "RegExp")
+        this.error = !this.check.test(this.model);
+      this.$emit("input", this.value);
     }
   },
-  computed: {}
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      }
+    }
+  }
 };
 </script>
