@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Bt from './views/Button.vue'
 import Radio from './views/Radio.vue'
 import Input from './views/Input.vue'
+import Combobox from './views/Combobox.vue'
 import test from './components/test/test.vue'
 
 Vue.use(Router)
@@ -31,6 +32,11 @@ export default new Router({
       path: '/input',
       name: 'input',
       component: Input
+    },
+    {
+      path: '/combobox',
+      name: 'combobox',
+      component: Combobox
     },
     {
       path: '/test',

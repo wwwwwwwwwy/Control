@@ -1,6 +1,6 @@
 <template>
-  <div class="pinput" :class="[focus?'focus':'default',error?'error':'']">
-    <div class="per-text left" v-if="false">星期：</div>
+  <div class="pinput" :class="[focus?'focus':'default',showError?'error':'']">
+    <div class="per-text left" v-if="prefix">星期：</div>
     <div class="per-center">
       <input
         ref="input"
@@ -8,23 +8,18 @@
         @focus="focusHandler"
         @blur="blurHandler"
         type="text"
-        placeholder="请输入"
+        :placeholder="placeholder"
       >
-      {{error}}
       <div class="per-inputborder"></div>
     </div>
-    <div class="per-text right" v-if="false">kWh</div>
-    <div class="reminder-tip" friendly>
-      <em></em>
-    </div>
-    <div class="error-tip" err>
-      <em errtext></em>
-    </div>
+    <div class="per-text right" v-if="suffix">kWh</div>
+    <p class="errortext" v-show="showError" v-text="errortext"></p>
   </div>
 </template>
 
 <style>
 .pinput {
+  position: relative;
   width: 245px;
   display: flex;
   height: 30px;
@@ -34,6 +29,22 @@
   align-items: stretch;
   justify-content: space-around;
   font-size: 14px;
+}
+
+.pinput.error {
+  margin-bottom: 20px;
+}
+
+.pinput .errortext {
+  position: absolute;
+  margin: 0;
+  top: 30px;
+  left: 0;
+  right: 0;
+  font-size: 12px;
+  line-height: 20px;
+  color: #f97c7c;
+  text-align: left;
 }
 
 .pinput .per-center {
@@ -96,7 +107,6 @@
 
 
 <script>
-import { debug } from "util";
 export default {
   name: "pinput",
   data() {
@@ -116,6 +126,26 @@ export default {
     value: {
       type: String,
       default: () => ""
+    },
+    errortext: {
+      type: String,
+      default: () => ""
+    },
+    prefix: {
+      type: String,
+      default: () => ""
+    },
+    suffix: {
+      type: String,
+      default: () => ""
+    },
+    placeholder: {
+      type: String,
+      default: () => ""
+    },
+    disabled: {
+      type: Boolean,
+      default: () => false
     }
   },
   methods: {
@@ -125,7 +155,6 @@ export default {
       this.focus = true;
     },
     blurHandler() {
-      debugger;
       let bool = this.$emit("blur");
       if (bool === false) return;
       this.focus = false;
@@ -137,6 +166,9 @@ export default {
     }
   },
   computed: {
+    showError() {
+      return !this.focus && this.error;
+    },
     model: {
       get() {
         return this.value;
