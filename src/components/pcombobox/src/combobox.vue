@@ -1,14 +1,10 @@
 <template>
-  <div pc class="per-combobox-basic" _pt="pcombobox-normal" _id="bfffebjgeacajgaaheh">
-    <div cheader class="per-combobox-title" title>
-      <span class="per-combobox_name" cheadertext>先选择项目</span>
-      <span class="per-combobox_icon">v</span>
+  <div pc class="pcombobox">
+    <div class="pcombobox_title">
+      <span class="pcombobox_title_name">先选择项目</span>
+      <span class="pcombobox_title_icon">v</span>
     </div>
-    <div
-      class="per-combobox-wrap _combobox_bottom _combobox_left"
-      style="display: block;"
-      pdisabled="false"
-    >
+    <div class="pcombobox_dropdown" style="display: block;">
       <div class="_combobox_flex" flex>
         <div class="per-combobox-con" style="display: inline-block;" level="1">
           <div style="max-width: 198px; max-height: 150px;">
@@ -58,8 +54,71 @@
     </div>
   </div>
 </template>
+
+<style>
+.pcombobox {
+  position: relative;
+  height: 30px;
+}
+
+.pcombobox_title {
+  width: 100%;
+  display: inline-block;
+  height: 30px;
+  font-size: 14px;
+  line-height: 28px;
+  border-radius: 2px;
+  padding-left: 13px;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #cacaca;
+  color: #5c649c;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 36px;
+  z-index: 2;
+}
+
+.pcombobox_title_name {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pcombobox_title_icon {
+  font-family: "perficon";
+  font-size: 14px;
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+
+.pcombobox_dropdown {
+  position: absolute;
+  box-sizing: border-box;
+  min-width: 100%;
+  top: 29px;
+  color: #333;
+  z-index: 4;
+  white-space: nowrap;
+  font-size: 0;
+  padding-top: 1px;
+  margin-top: -1px;
+  line-height: 1;
+}
+</style>
+
+
 <script>
 export default {
-  name: "pcombobox"
+  name: "pcombobox",
+  mounted() {
+    console.log(Object.prototype.toString.call(this.$slots.dropdown));
+  }
 };
 </script>

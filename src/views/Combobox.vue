@@ -1,7 +1,10 @@
 <template>
   <div>
     combobox
-    <pcombobox></pcombobox>
+    <pcombobox>
+      <h2>123</h2>
+      <div slot="dropdown">Hello World</div>
+    </pcombobox>
   </div>
 </template>
 
